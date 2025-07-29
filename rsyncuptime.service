@@ -1,0 +1,16 @@
+[Unit]
+Description=Rsync Uptime Monitoring Server
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=[DIRECTORY CONTAINING SERVER CODE]
+ExecStart=[PATH TO THE SERVER BINARY]
+Restart=on-failure
+RestartSec=5
+Environment=RSYNC_URL=rsync://sagres.c3sl.ufpr.br/
+Environment=POLLING_INTERVAL_SECONDS=300
+Environment=PORT=8080
+
+[Install]
+WantedBy=multi-user.target
