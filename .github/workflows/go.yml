@@ -1,0 +1,30 @@
+# This workflow will build and test two Go binaries: server and tui
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+
+name: Go
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.20'
+
+    - name: Build server
+      run: go build -v -o rsyncuptime-server ./server.go
+
+    - name: Build tui
+      run: go build -v -o rsyncuptime-tui ./tui.go
+
+    - name: Test
+      run: go test -v ./server.go ./server_test.go
