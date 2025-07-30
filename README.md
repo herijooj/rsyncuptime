@@ -191,3 +191,18 @@ Os testes cobrem validação, respostas HTTP e cenários de erro do rsync.
   - `PORT`: porta do servidor HTTP (padrão: 8080)
 - **Segurança:**
   - O servidor valida todos os nomes de módulo recebidos na URL para evitar ataques de path traversal e injeção.
+
+## 🐋 Rodando em um Container (Docker):
+
+***Construir a imagem:***
+```sh
+docker build -t rsyncuptime .
+```
+
+***Rodar o container:***
+```sh
+docker run -p 8080:8080 rsyncuptime  
+```
+
+### A aplicação estará disponível em:
+***http://localhost:8080***
