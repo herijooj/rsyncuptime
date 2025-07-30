@@ -6,22 +6,24 @@ WORKDIR /app
 # Copia os arquivos do projeto
 COPY . .
 
-# Compila o binário
+# Compilando o binário server.go 
+#Atenção: estamos colocando apenas o programa server.go no container, o tui.go continuará fora!
 RUN go build -o rsyncuptime server.go
 
-# Etapa final
+# Etapa final:
 FROM debian:bookworm-slim
 
-# Instala o rsync
+# Instalando o rsync:
 RUN apt-get update && \
     apt-get install -y rsync && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Copia o binário compilado
+# Copiando o binário compilado:
 COPY --from=builder /app/rsyncuptime /usr/local/bin/rsyncuptime
 
-# Exponha a porta, se necessário
+# Exponha a porta, se necessário: 
+#Atenção: se você mudar de porta, esse trecho do código deve-se mudar também!
 EXPOSE 8080
 
-# Define o comando de entrada
+# Definindo o comando de entrada:
 CMD ["rsyncuptime"]
